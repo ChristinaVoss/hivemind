@@ -4,4 +4,6 @@
 @forward 'general/root';
 
 // Components
+@forward '../../components/blank_page_component/blank_page_component';
+@forward '../../components/footer_component/footer_component';
 @forward '../../components/nav_bar_component/nav_bar_component';
