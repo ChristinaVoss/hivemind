@@ -1,0 +1,10 @@
+.nav-bar {
+    border-block-end: solid 1px #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+
+    &__logo span {
+        color: black;
+    }
+}

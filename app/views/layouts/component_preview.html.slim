@@ -1,0 +1,11 @@
+doctype html
+html lang=I18n.locale
+  head
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application'
+    = csp_meta_tag
+    = javascript_importmap_tags
+
+    link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=hive" rel="stylesheet"
+  body
+    = yield

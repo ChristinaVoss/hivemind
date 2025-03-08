@@ -1,3 +1,7 @@
-// Sassy
+// General stylesheets
+@forward 'general/button';
 @forward 'general/form';
 @forward 'general/root';
+
+// Components
+@forward '../../components/nav_bar_component/nav_bar_component';
