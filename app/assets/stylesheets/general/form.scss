@@ -1,0 +1,23 @@
+form {
+    border: solid 1px #ccc;
+    border-radius: .5rem;
+    padding: 1rem;
+    width: fit-content;
+    input {
+        border: 1px solid #ccc;
+        border-radius: .25rem;
+        padding: .5rem;
+        margin: .5rem;
+        width: 50ch;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        border: none;
+        padding: .5rem 1rem;
+        margin: .5rem;
+        width: fit-content;
+    }
+}
