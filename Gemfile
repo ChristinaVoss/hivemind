@@ -19,6 +19,12 @@ gem "dartsass-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+#  Use view components to encapsulate reusable and testable view fragments [
+gem "view_component"
+
+# Use slim for templates
+gem "slim"
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 
@@ -56,6 +62,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "lookbook"
+  gem "listen"
+  gem "actioncable"
 end
 
 
