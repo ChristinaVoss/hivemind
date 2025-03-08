@@ -1,0 +1,15 @@
+.registration
+  h1.registration__title Sign up
+  p Create your account and start saving flower patches.
+
+  = form_with url: registrations_url, model: @user, method: :post, class: "registration__form form" do |form|
+    .form__field
+        = form.label :email_address, "Email address"
+        = form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address]
+    .form__field
+        = form.label :password, "Password"
+        = form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72
+    .form__field
+        = form.label :password_confirmation, "Password confirmation"
+        = form.password_field :password_confirmation, required: true, autocomplete: "current-password", placeholder: "Password confirmation", maxlength: 72
+    = form.submit "Sign up", class: "button"

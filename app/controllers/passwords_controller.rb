@@ -3,6 +3,8 @@ class PasswordsController < ApplicationController
   before_action :set_user_by_token, only: %i[ edit update ]
 
   def new
+    component = ForgotPasswordComponent.new
+    render BlankPageComponent.new(component:)
   end
 
   def create
@@ -14,6 +16,8 @@ class PasswordsController < ApplicationController
   end
 
   def edit
+    component = ResetPasswordComponent.new(token: params[:token])
+    render BlankPageComponent.new(component:)
   end
 
   def update

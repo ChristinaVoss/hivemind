@@ -2,6 +2,7 @@
 
 class BlankPageComponentPreview < ViewComponent::Preview
   def default
-    render(BlankPageComponent.new)
+    component = RegistrationComponent.new(user: User.new)
+    render(BlankPageComponent.new(component:))
   end
 end

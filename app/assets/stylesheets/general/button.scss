@@ -1,10 +1,17 @@
+button {
+    all: unset;
+}
+
 .button {
     background-color: rgb(248, 183, 5);
+    border: none;
     border-radius: .25rem;
     color: black;
     cursor: pointer;
+    font-weight: bold;
     padding: .5rem;
     text-decoration: none;
+    width: fit-content;
 
     &:hover {
         background-color: rgb(217, 159, 2);

@@ -3,7 +3,8 @@ class RegistrationsController < ApplicationController
   before_action :resume_session, only: %i[new create]
 
   def new
-    @user = User.new
+    component = RegistrationComponent.new(user: User.new)
+    render BlankPageComponent.new(component:)
   end
 
   def create
