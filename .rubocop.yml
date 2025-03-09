@@ -1,6 +1,6 @@
 plugins: rubocop-rails
-require:
-  - rubocop-rspec
+# require:
+#   - rubocop-rspec
 
 # Allow the Exclude arrays to be merged.
 inherit_mode:
@@ -50,12 +50,12 @@ Style/Documentation:
 Rails/FilePath:
   Enabled: false  # we don't use windows and the paths look nicer when not following this
 
-RSpec/MultipleExpectations:
-  Exclude:
-    - spec/system/**/*
+# RSpec/MultipleExpectations:
+#   Exclude:
+#     - spec/system/**/*
 
-RSpec/MultipleMemoizedHelpers:
-  Max: 10
+# RSpec/MultipleMemoizedHelpers:
+#   Max: 10
 
-RSpec/NestedGroups:
-  Max: 4
+# RSpec/NestedGroups:
+#   Max: 4
