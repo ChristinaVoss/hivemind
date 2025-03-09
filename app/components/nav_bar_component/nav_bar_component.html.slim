@@ -2,9 +2,10 @@
   a.nav-bar__logo href='#'
     span.material-symbols-outlined aria-label='Hive' hive 
   - if Current.user.present?
-    = button_to "Sign out", session_path, method: :delete, class: 'button--secondary'
+    = button_to "Sign out", session_path, method: :delete, class: 'button--secondary', data: { turbo: :false }
   - else
     = link_to "Sign in", new_session_path, class: 'button'
+    = link_to "Sign up", new_registration_path, class: 'button--secondary'
 
 
 

@@ -7,4 +7,7 @@ class User < ApplicationRecord
   validates :password, presence: true
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  BEE_SPEED_TO_HIVE = 17.0 # km/h
+  BEE_SPEED_TO_FOOD = 28.0 # km/h
 end

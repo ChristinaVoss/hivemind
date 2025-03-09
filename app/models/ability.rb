@@ -4,15 +4,17 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    # for testing only - remove soon!
+    # can :read, :all
     return unless user # Guests have no permissions
 
     # A bee can manage (create, update, delete) its own hive
     can :manage, Hive, user_id: user.id
 
     # A bee can create flower patches
-    can :create, FlowerPatch
+    # can :create, FlowerPatch
 
     # A bee can view all flower patches (they are public)
-    can :read, FlowerPatch
+    # can :read, FlowerPatch
   end
 end

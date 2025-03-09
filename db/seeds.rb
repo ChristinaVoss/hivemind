@@ -7,3 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+User.create!(email_address: "queen@hive.com", password: "nectar123")
+
+user = User.find_by(email_address: "queen@hive.com")
+Hive.create!(user:, location: "POINT(0.1228 52.2112)") # Jesus Green, Cambridge

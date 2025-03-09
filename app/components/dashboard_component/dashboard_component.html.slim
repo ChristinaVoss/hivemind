@@ -1,0 +1,9 @@
+.dashboard data-controller="map"
+  h1 Find the hive
+  p Find the hive and see how far away it is from you
+  .dashboard__content
+    .dashboard__map
+        = render MapComponent.new(location: hive.location)
+    .dashboard__stats
+        = render StatsComponent.new(description: "Distance from hive", value: "0 km", stats_id: "distance-value")
+        = render StatsComponent.new(description: "Bee flight time to hive", value: "0 seconds", stats_id: "bee-flight-time")
