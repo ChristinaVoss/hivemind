@@ -23,6 +23,9 @@ gem "jbuilder"
 gem "activerecord-postgis-adapter", "~> 11.0"
 gem "rgeo", "~> 3.0"
 
+# Authorization
+gem "cancancan"
+
 #  Use view components to encapsulate reusable and testable view fragments [
 gem "view_component"
 
