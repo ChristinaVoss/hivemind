@@ -1,0 +1,23 @@
+.stats {
+    --blue: rgb(15, 111, 222);
+    --green: rgb(17, 140, 45);
+    --stats-color: var(--green);
+
+    border: solid 1px var(--stats-color);
+    border-radius: .5rem;
+    height: fit-content;
+    padding: 1rem;
+
+    &__description {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-block: .5rem .25rem;
+    }
+
+    &__value {
+        color: var(--stats-color);
+        font-size: 6rem;
+        font-weight: bold;
+        margin-block: 0;
+    }
+}

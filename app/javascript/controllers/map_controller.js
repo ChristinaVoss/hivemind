@@ -22,6 +22,8 @@ export default class extends Controller {
       attribution: "© <a href='https://carto.com/'>Carto</a>",
     }).addTo(map);
 
+    L.DomUtil.addClass(map._container,'bee-cursor-enabled');
+
     L.marker([lat, lng]).addTo(map)
       .bindPopup("Your Hive 🐝")
       .openPopup();

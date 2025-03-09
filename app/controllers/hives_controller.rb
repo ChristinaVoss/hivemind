@@ -3,8 +3,9 @@ class HivesController < ApplicationController
 
   def show
     hive = current_user.hive
-    map = MapComponent.new(location: hive.location)
-    render BlankPageComponent.new(component: map)
+    # map = MapComponent.new(location: hive.location)
+    component = DashboardComponent.new(hive:)
+    render BlankPageComponent.new(component:)
   end
 
   def distance
