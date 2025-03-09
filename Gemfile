@@ -19,6 +19,10 @@ gem "dartsass-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# For geospatial data
+gem "activerecord-postgis-adapter", "~> 11.0"
+gem "rgeo", "~> 3.0"
+
 #  Use view components to encapsulate reusable and testable view fragments [
 gem "view_component"
 
