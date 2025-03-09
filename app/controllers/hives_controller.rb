@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HivesController < ApplicationController
   load_and_authorize_resource
 
@@ -8,7 +10,7 @@ class HivesController < ApplicationController
     render BlankPageComponent.new(component:)
   end
 
-  def distance
+  def distance # rubocop:disable Metrics/AbcSize
     hive = current_user.hive
     lat = params[:lat].to_f
     lng = params[:lng].to_f

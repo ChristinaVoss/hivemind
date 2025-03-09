@@ -40,6 +40,8 @@ Metrics/MethodLength:
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - "spec/**/*"
+Rails/I18nLocaleTexts:
+  Enabled: false
 
 Style/DoubleNegation:
   Enabled: no
