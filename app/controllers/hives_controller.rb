@@ -27,9 +27,9 @@ class HivesController < ApplicationController
         #{quoted_hive_location}::geography,
         #{quoted_bee_location}::geography
       ) / 1000 AS distance"
-    ).first["distance"]
+    ).first['distance']
 
-    bee_flight_time = (distance / User::BEE_SPEED_TO_HIVE)  * 60 * 60 # Convert hours to seconds
+    bee_flight_time = (distance / User::BEE_SPEED_TO_HIVE) * 60 * 60 # Convert hours to seconds
 
     render json: { distance: distance.round(2), bee_flight_time: bee_flight_time.round }
   end

@@ -1,8 +1,61 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+require:
+#   - rubocop-capybara
+#   - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+# Allow the Exclude arrays to be merged.
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  NewCops: enable
+  UseCache: false
+  TargetRubyVersion: 3.3
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - public/**/*
+    - 'db/schema.rb'
+    - bundle/**/*
+    - vendor/**/*
+
+Layout/LineLength:
+  Exclude:
+    - spec/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - Gemfile
+    - Guardfile
+    - spec/**/*
+
+Metrics/ClassLength:
+  Enabled: no
+
+Metrics/MethodLength:
+  Enabled: no
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - "spec/**/*"
+
+Style/DoubleNegation:
+  Enabled: no
+
+Style/Documentation:
+  Enabled: no
+
+Rails/FilePath:
+  Enabled: false  # we don't use windows and the paths look nicer when not following this
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/system/**/*
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
+RSpec/NestedGroups:
+  Max: 4

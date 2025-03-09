@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe DashboardComponent, type: :component do
   pending "add some examples to (or delete) #{__FILE__}"

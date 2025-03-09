@@ -2,6 +2,6 @@
 
 class DashboardComponentPreview < ViewComponent::Preview
   def default
-    render(DashboardComponent.new(hive: "hive"))
+    render(DashboardComponent.new(hive: 'hive'))
   end
 end

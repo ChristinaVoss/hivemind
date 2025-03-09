@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to "/", alert: exception.message # change to root_path once you've set it up
+    redirect_to '/', alert: exception.message # change to root_path once you've set it up
   end
 
   private

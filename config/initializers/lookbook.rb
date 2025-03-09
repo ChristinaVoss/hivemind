@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "lookbook"
+require 'lookbook'
 
 Rails.application.configure do
   # Set paths to our previews
   config.view_component.preview_paths <<
-    Rails.root.join("lib/component_previews")
-  config.view_component.default_preview_layout = "component_preview"
+    Rails.root.join('lib/component_previews')
+  config.view_component.default_preview_layout = 'component_preview'
   # config.view_component.preview_controller = 'ComponentPreviewController'
 
   # if ENV.fetch('ENABLE_LOOKBOOK', 'false') == 'true'
