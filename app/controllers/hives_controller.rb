@@ -2,7 +2,9 @@ class HivesController < ApplicationController
   load_and_authorize_resource
 
   def show
+    puts "INSIDE HIVES CONTROLLER - SHOW"
     hive = current_user.hive
+    pp hive
     map = MapComponent.new(location: hive.location)
     render BlankPageComponent.new(component: map)
   end

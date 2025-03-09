@@ -12,4 +12,4 @@
     .form__field
         = form.label :password_confirmation, "Password confirmation"
         = form.password_field :password_confirmation, required: true, autocomplete: "current-password", placeholder: "Password confirmation", maxlength: 72
-    = form.submit "Sign up", class: "button"
+    = form.submit "Sign up", class: "button", data: { turbo: :false }
