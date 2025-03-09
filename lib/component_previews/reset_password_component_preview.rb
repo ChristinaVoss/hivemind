@@ -2,6 +2,6 @@
 
 class ResetPasswordComponentPreview < ViewComponent::Preview
   def default
-    render(ResetPasswordComponent.new(token: "abc"))
+    render(ResetPasswordComponent.new(token: 'abc'))
   end
 end

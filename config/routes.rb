@@ -1,21 +1,21 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  if Rails.env.development?
-    mount Lookbook::Engine, at: "/lookbook"
-  end
+  mount Lookbook::Engine, at: '/lookbook' if Rails.env.development?
 
   resource :session
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Sign up routes
-  resource :registrations, only: [ :new, :create ]
-  resource :hives, only: [ :show ] do
+  resource :registrations, only: %i[new create]
+  resource :hives, only: [:show] do
     get :distance, on: :collection
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest

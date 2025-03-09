@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HivesController < ApplicationController
   load_and_authorize_resource
 
@@ -8,7 +10,7 @@ class HivesController < ApplicationController
     render BlankPageComponent.new(component:)
   end
 
-  def distance
+  def distance # rubocop:disable Metrics/AbcSize
     hive = current_user.hive
     lat = params[:lat].to_f
     lng = params[:lng].to_f
@@ -27,9 +29,9 @@ class HivesController < ApplicationController
         #{quoted_hive_location}::geography,
         #{quoted_bee_location}::geography
       ) / 1000 AS distance"
-    ).first["distance"]
+    ).first['distance']
 
-    bee_flight_time = (distance / User::BEE_SPEED_TO_HIVE)  * 60 * 60 # Convert hours to seconds
+    bee_flight_time = (distance / User::BEE_SPEED_TO_HIVE) * 60 * 60 # Convert hours to seconds
 
     render json: { distance: distance.round(2), bee_flight_time: bee_flight_time.round }
   end

@@ -4,6 +4,8 @@ class StatsComponent < ViewComponent::Base
   attr_reader :description, :value, :stats_id
 
   def initialize(description:, value:, stats_id: nil)
+    super
+
     @description = description
     @value = value
     @stats_id = stats_id
