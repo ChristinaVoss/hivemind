@@ -1,9 +1,9 @@
 .dashboard data-controller="map"
-  h1 Find the hive
-  p Find the hive and see how far away it is from you
+  h1 Plan your day
+  p Click on the map to see how long it will take you to fly back to your hive.
   .dashboard__content
     .dashboard__map
-        = render MapComponent.new(location: hive.location)
+        = render MapComponent.new(location: hive.location, attrs: { controller: "map", "map-hive-lat-value": hive.location.y, "map-hive-lng-value": hive.location.x })
     .dashboard__stats
         = render StatsComponent.new(description: "Distance from hive", value: "0 km", stats_id: "distance-value")
         = render StatsComponent.new(description: "Bee flight time to hive", value: "0 seconds", stats_id: "bee-flight-time")

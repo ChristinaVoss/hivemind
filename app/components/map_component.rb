@@ -9,4 +9,8 @@ class MapComponent < ViewComponent::Base
 
     super
   end
+
+  def data_attributes
+    attrs.transform_keys { |key| "data-#{key.to_s.dasherize}" }
+  end
 end
