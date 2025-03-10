@@ -69,4 +69,18 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  #
+  # config.include WaitForAjax, type: :system
+  config.include Capybara::RSpecMatchers, type: :component
+  # config.include PreviewPathHelper, type: :system
+  config.include ViewComponent::TestHelpers, type: :component
+  config.include Rails.application.routes.url_helpers, type: :component
+
+  # To be able to use validate_presence_of() matchers with Rspec:
+  Shoulda::Matchers.configure do |c|
+    c.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
 end

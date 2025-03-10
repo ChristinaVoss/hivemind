@@ -3,13 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe ResetPasswordComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { page }
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  let(:component) { described_class.new(**args) }
+  let(:args) { { token: 'abc' } }
+
+  before { render_inline(component) }
+
+  it { is_expected.to have_css '.reset-password form' }
+  it { is_expected.to have_css '.form__field label', text: 'Password' }
+  it { is_expected.to have_css 'input#password' }
+  it { is_expected.to have_css '.form__field label', text: 'Password confirmation' }
+  it { is_expected.to have_css 'input#password_confirmation' }
 end
