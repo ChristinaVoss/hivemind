@@ -5,7 +5,7 @@ class RegistrationsController < ApplicationController
   before_action :resume_session, only: %i[new create]
 
   def new
-    component = RegistrationComponent.new(user: User.new)
+    component = AuthComponents::RegistrationComponent.new(user: User.new)
     render BlankPageComponent.new(component:, current_user:)
   end
 
@@ -16,7 +16,7 @@ class RegistrationsController < ApplicationController
       redirect_to new_hives_path,
                   notice: "You've successfully signed up to Hivemind. Welcome! Please choose your hive location."
     else
-      component = RegistrationComponent.new(user: @user)
+      component = AuthComponents::RegistrationComponent.new(user: @user)
       render BlankPageComponent.new(component:, current_user:), status: :unprocessable_entity
     end
   end
