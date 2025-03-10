@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe LoginComponent, type: :component do
+RSpec.describe AuthComponents::LoginComponent, type: :component do
   subject { page }
 
   let(:component) { described_class.new(**args) }
