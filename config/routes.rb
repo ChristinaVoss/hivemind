@@ -3,15 +3,19 @@
 Rails.application.routes.draw do
   mount Lookbook::Engine, at: '/lookbook' if Rails.env.development?
 
+  # Sign up/in routes
   resource :session
   resources :passwords, param: :token
+  resource :registrations, only: %i[new create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Sign up routes
-  resource :registrations, only: %i[new create]
-  resource :hives, only: [:show] do
+  # App routes
+  resources :hives, only: %i[new create] do
     get :distance, on: :collection
   end
+
+  # Custom route for the dashboard
+  get 'dashboard', to: 'hives#show', as: :dashboard
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

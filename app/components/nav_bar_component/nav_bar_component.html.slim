@@ -1,12 +1,17 @@
-.nav-bar
+header.nav-bar
   a.nav-bar__logo href=root_path
     span.material-symbols-outlined aria-label='Hive' hive 
-  .nav-bar__auth-buttons
+  nav.nav-bar__menu
     - if current_user.present?
-      = button_to "Sign out", session_path, method: :delete, class: 'button--secondary', data: { turbo: :false }
+      .nav-bar__nav-links
+        = link_to "Dashboard", dashboard_path
+        = link_to 'Move hive', new_hive_path
+      .nav-bar__auth-buttons
+        = button_to "Sign out", session_path, method: :delete, class: 'button--secondary', data: { turbo: :false }
     - else
-      = link_to "Sign in", new_session_path, class: 'button'
-      = link_to "Sign up", new_registrations_path, class: 'button--secondary'
+      .nav-bar__auth-buttons
+        = link_to "Sign in", new_session_path, class: 'button'
+        = link_to "Sign up", new_registrations_path, class: 'button--secondary'
 
 
 

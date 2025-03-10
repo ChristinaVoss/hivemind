@@ -1,5 +1,7 @@
 div class=attrs[:class]
   = render NavBarComponent.new(current_user:)
   .blank-page__content
+    = tag.div(flash[:alert], style: "color:red") if flash[:alert]
+    = tag.div(flash[:notice], style: "color:green") if flash[:notice]
     = render component
   = render FooterComponent.new

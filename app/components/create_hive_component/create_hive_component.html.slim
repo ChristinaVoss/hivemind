@@ -1,0 +1,5 @@
+.create-hive data-controller="create-hive-map"
+  h1 Choose your hive location
+  p Click on the map to choose the location of your hive.
+  = render MapComponent.new(location: nil, attrs: { "create-hive-map-target": "map" })
+  button#save-hive-location.button data-create-hive-map-target='button' Save Hive Location
