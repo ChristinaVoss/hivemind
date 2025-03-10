@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ResetPasswordComponent, type: :component do
+RSpec.describe AuthComponents::ResetPasswordComponent, type: :component do
   subject { page }
 
   let(:component) { described_class.new(**args) }

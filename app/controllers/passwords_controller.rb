@@ -10,7 +10,7 @@ class PasswordsController < ApplicationController
   end
 
   def edit
-    component = ResetPasswordComponent.new(token: params[:token])
+    component = AuthComponents::ResetPasswordComponent.new(token: params[:token])
     render BlankPageComponent.new(component:, current_user:)
   end
 
