@@ -7,6 +7,8 @@ class HivesController < ApplicationController
 
   def show
     hive = current_user.hive
+    return redirect_to new_hive_path, alert: 'Please create a hive first.' if hive.nil?
+
     component = DashboardComponent.new(hive:)
     render BlankPageComponent.new(component:, current_user:)
   end

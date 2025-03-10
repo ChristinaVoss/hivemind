@@ -338,6 +338,7 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
+    rexml (3.4.1)
     rgeo (3.0.1)
     rgeo-activerecord (8.0.0)
       activerecord (>= 7.0)
@@ -395,6 +396,7 @@ GEM
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
     ruby-progressbar (1.13.0)
+    rubyzip (2.4.1)
     sass-embedded (1.85.1-aarch64-linux-gnu)
       google-protobuf (~> 4.29)
     sass-embedded (1.85.1-aarch64-linux-musl)
@@ -412,6 +414,12 @@ GEM
     sass-embedded (1.85.1-x86_64-linux-musl)
       google-protobuf (~> 4.29)
     securerandom (0.4.1)
+    selenium-webdriver (4.29.1)
+      base64 (~> 0.2)
+      logger (~> 1.4)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
     shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
     slim (5.2.1)
@@ -476,6 +484,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    websocket (1.2.11)
     websocket-driver (0.7.7)
       base64
       websocket-extensions (>= 0.1.0)
@@ -527,6 +536,7 @@ DEPENDENCIES
   rspec-rails (~> 7.1)
   rubocop-rails-omakase
   rubocop-rspec
+  selenium-webdriver
   shoulda-matchers
   slim
   solid_cable

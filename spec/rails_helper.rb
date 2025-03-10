@@ -10,7 +10,10 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 # that will avoid rails generators crashing because migrations haven't been run yet
 # return unless Rails.env.test?
 require 'rspec/rails'
+require 'capybara/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
+# Add additional requires below this line. Rails is not loaded until this point!
+Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -71,6 +74,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   #
   # config.include WaitForAjax, type: :system
+  config.include AuthenticationHelpers, type: :system
+  config.include Capybara::DSL
   config.include Capybara::RSpecMatchers, type: :component
   # config.include PreviewPathHelper, type: :system
   config.include ViewComponent::TestHelpers, type: :component
@@ -84,3 +89,5 @@ RSpec.configure do |config|
     end
   end
 end
+
+Capybara.default_driver = :selenium_chrome_headless
