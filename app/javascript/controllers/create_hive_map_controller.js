@@ -36,7 +36,7 @@ export default class extends Controller {
 
     if (response.ok) {
       console.log("Hive location saved successfully");
-      window.location.href = "/hives";
+      window.location.href = "/dashboard";
     } else {
       console.error("Failed to save hive location");
     }
