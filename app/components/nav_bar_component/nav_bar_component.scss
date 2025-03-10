@@ -8,8 +8,20 @@
         color: black;
     }
 
-    &__auth-buttons {
+    &__menu,
+    &__auth-buttons,
+    &__nav-links {
+        align-items: center;
         display: flex;
         gap: 1rem;
+    }
+
+    &__nav-links a {
+        color: black;
+        text-decoration: underline;
+
+        &:hover {
+            font-weight: bold;
+        }
     }
 }

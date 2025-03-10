@@ -27,9 +27,9 @@ class HivesController < ApplicationController
     hive = current_user.hive || current_user.build_hive
     hive.location = hive_location
 
-    return redirect_to hives_path, notice: 'Hive location saved successfully!' if hive.save
+    return redirect_to dashboard_path, notice: 'Hive location saved successfully!' if hive.save
 
-    # TODO: Add error message to the component
+    flash.now[:alert] = hive.errors.full_messages.join(', ')
     component = CreateHiveComponent.new(user: current_user)
     render BlankPageComponent.new(component:, current_user:), status: :unprocessable_entity
   end
