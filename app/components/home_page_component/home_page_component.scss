@@ -1,0 +1,23 @@
+.home-page {
+  max-width: 1200px;
+
+  &__header,
+  &__box {
+    background-color: var(--yellow);
+    border-radius: .5rem;
+    padding: 1rem;
+  }
+  &__header {
+    margin-block-end: 1rem;
+  }
+
+  &__content {
+    display: grid;
+    grid-gap: 1rem;
+  
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+}

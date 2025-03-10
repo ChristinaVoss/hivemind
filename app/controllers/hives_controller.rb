@@ -1,13 +1,19 @@
 # frozen_string_literal: true
 
 class HivesController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :home
+  allow_unauthenticated_access only: %i[home]
+  before_action :resume_session, only: :home
 
   def show
     hive = current_user.hive
-    # map = MapComponent.new(location: hive.location)
     component = DashboardComponent.new(hive:)
-    render BlankPageComponent.new(component:)
+    render BlankPageComponent.new(component:, current_user:)
+  end
+
+  def home
+    component = HomePageComponent.new
+    render BlankPageComponent.new(component:, current_user:)
   end
 
   def distance # rubocop:disable Metrics/AbcSize

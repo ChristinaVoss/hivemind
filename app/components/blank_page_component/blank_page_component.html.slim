@@ -1,5 +1,5 @@
 div class=attrs[:class]
-  = render NavBarComponent.new
+  = render NavBarComponent.new(current_user:)
   .blank-page__content
     = render component
   = render FooterComponent.new

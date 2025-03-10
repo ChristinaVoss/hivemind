@@ -6,12 +6,12 @@ class PasswordsController < ApplicationController
 
   def new
     component = ForgotPasswordComponent.new
-    render BlankPageComponent.new(component:)
+    render BlankPageComponent.new(component:, current_user:)
   end
 
   def edit
     component = ResetPasswordComponent.new(token: params[:token])
-    render BlankPageComponent.new(component:)
+    render BlankPageComponent.new(component:, current_user:)
   end
 
   def create

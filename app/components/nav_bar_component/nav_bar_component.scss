@@ -7,4 +7,9 @@
     &__logo span {
         color: black;
     }
+
+    &__auth-buttons {
+        display: flex;
+        gap: 1rem;
+    }
 }

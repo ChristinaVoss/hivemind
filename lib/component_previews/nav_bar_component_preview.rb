@@ -2,6 +2,6 @@
 
 class NavBarComponentPreview < ViewComponent::Preview
   def default
-    render NavBarComponent.new
+    render NavBarComponent.new(current_user: nil)
   end
 end
