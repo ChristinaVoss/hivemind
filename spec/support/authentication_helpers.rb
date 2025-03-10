@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthenticationHelpers
   def sign_in(user)
     visit new_session_path
