@@ -13,10 +13,11 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       start_new_session_for @user
-      redirect_to hives_path, notice: "You've successfully signed up to Hivemind. Welcome!"
+      redirect_to new_hives_path,
+                  notice: "You've successfully signed up to Hivemind. Welcome! Please choose your hive location."
     else
-      flash[:alert] = @user.errors.full_messages.join(', ')
-      render :new, status: :unprocessable_entity
+      component = RegistrationComponent.new(user: @user)
+      render BlankPageComponent.new(component:, current_user:), status: :unprocessable_entity
     end
   end
 

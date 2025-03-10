@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class MapComponent < ViewComponent::Base
-  attr_reader :location
+  attr_reader :location, :attrs
 
-  def initialize(location:)
+  def initialize(location:, attrs: {})
     @location = location
+    @attrs = attrs
 
     super
   end

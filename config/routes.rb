@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # Sign up routes
   resource :registrations, only: %i[new create]
-  resource :hives, only: [:show] do
+  resource :hives, only: %i[show new create] do
     get :distance, on: :collection
   end
 

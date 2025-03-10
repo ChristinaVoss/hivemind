@@ -1,3 +1,9 @@
 .leaflet-container.bee-cursor-enabled {
     cursor: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="32" width="32"><text y="28" font-size="24">🐝</text><path d="M0,2 L0,0 L2,0" fill="" /></svg>'), auto !important;
 }
+
+.map {
+    border: solid 1px var(--green);
+    border-radius: .5rem;
+    overflow: hidden;
+}

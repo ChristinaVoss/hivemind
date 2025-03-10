@@ -4,11 +4,8 @@ export default class extends Controller {
   static values = { hiveLat: Number, hiveLng: Number };
 
   connect() {
-    // const lat = parseFloat(this.element.dataset.mapLat);
-    // const lng = parseFloat(this.element.dataset.mapLng);
     const lat = this.hiveLatValue;
     const lng = this.hiveLngValue;
-    console.log(lat, lng);
 
     if (!lat || !lng) {
       console.error("Invalid map coordinates");
@@ -16,7 +13,6 @@ export default class extends Controller {
     }
 
     const map = L.map(this.element).setView([lat, lng], 15);
-    console.log(map);
 
     L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
       attribution: "© <a href='https://carto.com/'>Carto</a>",
