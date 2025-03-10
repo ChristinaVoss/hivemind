@@ -9,7 +9,7 @@ RSpec.describe MapComponent, type: :component do
 
   let(:component) { described_class.new(**args) }
   let(:hive) { Hive.new(user: User.new, location: 'POINT(0.1228 52.2112)') }
-  let(:args) { { location: hive.location } }
+  let(:args) { { location: hive.location, attrs: { controller: 'map', 'map-hive-lat-value': hive.location.y, 'map-hive-lng-value': hive.location.x } } }
 
   before { render_inline(component) }
 
