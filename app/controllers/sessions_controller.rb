@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 
   def new
     component = LoginComponent.new
-    render BlankPageComponent.new(component:)
+    render BlankPageComponent.new(component:, current_user:)
   end
 
   def create
