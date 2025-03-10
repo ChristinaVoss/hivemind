@@ -66,6 +66,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem 'rubocop-rails-omakase', require: false
+
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -73,7 +76,15 @@ group :development do
   gem 'actioncable'
   gem 'listen'
   gem 'lookbook'
+  gem 'rubocop-rspec'
   gem 'web-console'
 end
 
-gem 'rspec-rails', '~> 7.1'
+group :test do
+  gem 'axe-core-capybara'
+  gem 'axe-core-rspec'
+  gem 'capybara'
+  gem 'rspec'
+  gem 'rspec-rails', '~> 7.1'
+  gem 'shoulda-matchers'
+end

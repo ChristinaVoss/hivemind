@@ -3,13 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe StatsComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { page }
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  let(:component) { described_class.new(**args) }
+  let(:args) { { description: 'Fun stats', value: '300 000' } }
+
+  before { render_inline(component) }
+
+  it { is_expected.to have_css '.stats' }
+  it { is_expected.to have_text 'Fun stats' }
+  it { is_expected.to have_text '300 000' }
 end

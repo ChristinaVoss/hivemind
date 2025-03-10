@@ -3,13 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe MapComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { page }
+  user = User.new(email_address: 'queen@hive.com', password: 'nectar123')
+  hive = Hive.new(user:, location: 'POINT(0.1228 52.2112)')
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  let(:component) { described_class.new(**args) }
+  let(:hive) { Hive.new(user: User.new, location: 'POINT(0.1228 52.2112)') }
+  let(:args) { { location: hive.location } }
+
+  before { render_inline(component) }
+
+  it { is_expected.to have_css '.map' }
+  it { is_expected.to have_css 'div#map[data-map-hive-lat-value="52.2112"]' }
+  it { is_expected.to have_css 'div#map[data-map-hive-lng-value="0.1228"]' }
 end

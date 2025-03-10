@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe BlankPageComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { page }
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  let(:blank_page_component) { described_class.new(**args) }
+  let(:component) { HomePageComponent.new }
+  let(:args) { { component: } }
+
+  before { render_inline(blank_page_component) }
+
+  it { is_expected.to have_css '.blank-page' }
 end

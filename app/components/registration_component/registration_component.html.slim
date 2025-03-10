@@ -2,7 +2,7 @@
   h1.registration__title Sign up
   p Create your account and start saving flower patches.
 
-  = form_with url: registrations_url, model: @user, method: :post, class: "registration__form form" do |form|
+  = form_with url: registrations_url, model: user, method: :post, class: "registration__form form" do |form|
     .form__field
         = form.label :email_address, "Email address"
         = form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address]
