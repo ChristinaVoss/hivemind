@@ -8,17 +8,12 @@ Rails.application.configure do
     Rails.root.join('lib/component_previews')
   config.view_component.default_preview_layout = 'component_preview'
   # config.view_component.preview_controller = 'ComponentPreviewController'
+  if ENV.fetch('ENABLE_LOOKBOOK', 'false') == 'true'
+    # Show view component previews if ENABLE_LOOKBOOK is set, otherwise use the
+    # default setting (i.e. enabled in dev/test environments)
+    config.view_component.show_previews = true
 
-  # if ENV.fetch('ENABLE_LOOKBOOK', 'false') == 'true'
-  #   # Show view component previews if ENABLE_LOOKBOOK is set, otherwise use the
-  #   # default setting (i.e. enabled in dev/test environments)
-  #   config.view_component.show_previews = true
-
-  #   # Allow runtime parsing, otherwise in prod mode previews are not found.
-  #   config.lookbook.runtime_parsing = true
-
-  #   config.lookbook.preview_display_options = {
-  #     locale: Rails.application.config.advertised_locales
-  #   }
-  # end
+    # Allow runtime parsing, otherwise in prod mode previews are not found.
+    config.lookbook.runtime_parsing = true
+  end
 end

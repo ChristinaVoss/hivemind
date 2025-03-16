@@ -49,6 +49,25 @@ Ensure you have the following installed:
    http://localhost:3000
    ```
 
+### Running system tests
+By default, system tests run in headless mode (without opening a browser). 
+
+**Headless Mode (Default):**
+Run tests without opening a browser:
+
+```
+bundle exec rspec
+```
+
+**Visible Browser Mode:**
+To run tests with a visible browser, set the `SHOW_BROWSER` environment variable to `true`:
+
+```
+SHOW_BROWSER=true bundle exec rspec
+```
+
+This setup applies to all (and only to) system tests, especially those using `js: true` for JavaScript-enabled features.
+
 ---
 
 ## Technical Details
