@@ -77,7 +77,7 @@ RSpec.configure do |config|
   config.include AuthenticationHelpers, type: :system
   config.include Capybara::DSL
   config.include Capybara::RSpecMatchers, type: :component
-  # config.include PreviewPathHelper, type: :system
+  config.include PreviewPathHelper, type: :system
   config.include ViewComponent::TestHelpers, type: :component
   config.include Rails.application.routes.url_helpers, type: :component
 
@@ -88,6 +88,33 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
-end
 
-Capybara.default_driver = :selenium_chrome_headless
+  # Configure system tests.
+  config.before(type: :system) do |example|
+    # When we don't need JS (or a specific device), use rack test for speed.
+    unless example.metadata[:js] || example.metadata[:device]
+      driven_by :rack_test
+      next
+    end
+
+    # We need to allow net connect at this stage to allow WebDrivers to update
+    # or Capybara to talk to selenium etc.
+    WebMock.allow_net_connect!
+
+    # Ensure we update the driver here, while we can connect to the network
+    # Webdrivers::Chromedriver.update
+
+    if ENV['SHOW_BROWSER'] == 'true'
+      driven_by :remote_selenium
+    else
+      driven_by :remote_selenium_headless
+    end
+
+    # Need to set the hostname, otherwise it defaults to www.example.com.
+    default_url_options[:host] = Capybara.server_host
+
+    WebMock.disable_net_connect!(allow_localhost: true, allow: [ENV.fetch('SELENIUM_HOST', 'selenium'), Capybara.server_host])
+
+    set_capybara_screen_resolution(**example.metadata.slice(:device, :orientation))
+  end
+end

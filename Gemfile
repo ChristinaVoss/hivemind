@@ -61,6 +61,9 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
 
+  # Check env file
+  gem 'dotenv-rails'
+
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem 'brakeman', require: false
 
@@ -69,14 +72,14 @@ group :development, :test do
 
   gem 'factory_bot_rails'
   gem 'faker'
+
+  gem 'lookbook'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'actioncable'
   gem 'listen'
-  gem 'lookbook'
-  gem 'rubocop-rspec'
   gem 'web-console'
 end
 
@@ -86,6 +89,8 @@ group :test do
   gem 'capybara'
   gem 'rspec'
   gem 'rspec-rails', '~> 7.1'
+  gem 'rubocop-rspec'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'webmock'
 end

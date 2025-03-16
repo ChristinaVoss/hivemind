@@ -6,3 +6,8 @@
 require_relative 'config/application'
 
 Rails.application.load_tasks
+
+# Precompile Lookbook previews for prod or CI
+Rake::Task['assets:precompile'].enhance do
+  Rake::Task['lookbook:previews:preparse'].invoke
+end
