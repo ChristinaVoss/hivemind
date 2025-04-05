@@ -52,4 +52,28 @@ jobs:
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
+  
+  
+  rspec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Run tests
+        run: bin/rspec --format documentation --color --profile --order defined
+        env:
+          RAILS_ENV: test
+          RACK_ENV: test
+          TEST_ENV_NUMBER: 1
+          CI: true
+          RSPEC_COLOR: true
+          RSPEC_PROFILE: true
+          RSPEC_ORDER: defined
 
