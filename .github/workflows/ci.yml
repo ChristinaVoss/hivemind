@@ -6,74 +6,229 @@ on:
     branches: [ main ]
 
 jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up environment
+        run: cp .env.example .env
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      - name: Cache assets
+        uses: actions/cache@v4
+        with:
+          path: |
+            public/assets
+            tmp/cache/assets
+          key: ${{ runner.os }}-assets-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-assets-${{ github.ref }}-${{ github.sha }}
+            ${{ runner.os }}-assets-${{ github.ref }}-
+            ${{ runner.os }}-assets-
+
+      - name: Precompile assets
+        run: bin/rails assets:precompile
+
+      - name: Cache build
+        uses: actions/cache/save@v4
+        with:
+          path: ./
+          key: ${{ github.sha }}-build
+
   brakeman:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    needs: build
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Restore build
+        uses: actions/cache/restore@v4
+        with:
+          path: ./
+          key: ${{ github.sha }}-build
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+      - name: brakeman
+        run: bundle exec brakeman
 
-  scan_js:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/importmap audit
 
   rubocop:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    needs: build
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Restore build
+        uses: actions/cache/restore@v4
+        with:
+          path: ./
+          key: ${{ github.sha }}-build
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+
+      - name: rubocop
+        run: bundle exec rubocop
+
+  stylelint:
+    runs-on: ubuntu-22.04
+    needs: build
+
+    steps:
+      - name: Restore build
+        uses: actions/cache/restore@v4
+        with:
+          path: ./
+          key: ${{ github.sha }}-build
+
+      - name: stylelint
+        run: npm run stylelint "app/**/*.scss"
+
+  slim-lint:
+    runs-on: ubuntu-22.04
+    needs: build
+
+    steps:
+      - name: Restore build
+        uses: actions/cache/restore@v4
+        with:
+          path: ./
+          key: ${{ github.sha }}-build
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+
+      - name: slim-lint
+        run: bundle exec slim-lint app/
+
+  standardjs:
+    runs-on: ubuntu-22.04
+    needs: build
+
+    steps:
+      - name: Restore build
+        uses: actions/cache/restore@v4
+        with:
+          path: ./
+          key: ${{ github.sha }}-build
+
+      - name: standardjs
+        run: npm run standard "app/**/*.js"
+
+  test:
+    runs-on: ubuntu-22.04
+    container:
+      image: ubuntu:24.04
+    needs: build
+
+    env:
+      SCREEN_WIDTH: 1920
+      SCREEN_HEIGHT: 1080
+
+    services:
+      selenium:
+        image: selenium/hub:4.22.0-20240621
+      # Two nodes seems optimum here
+      selenium-node-0:
+        image: selenium/node-chromium:4.22.0-20240621
+        env:
+          SE_EVENT_BUS_HOST: selenium
+          SE_EVENT_BUS_PUBLISH_PORT: 4442
+          SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      selenium-node-1:
+        image: selenium/node-chromium:4.22.0-20240621
+        env:
+          SE_EVENT_BUS_HOST: selenium
+          SE_EVENT_BUS_PUBLISH_PORT: 4442
+          SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      redis:
+        image: 'redis:6.2-alpine'
+
+    steps:
+      - name: Install deps
+        run: apt-get update && apt-get install -y zstd libyaml-dev tzdata
+
+      - name: Restore build
+        uses: actions/cache/restore@v4
+        with:
+          path: ./
+          key: ${{ github.sha }}-build
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Lint code for consistent style
-        run: bin/rubocop -f github
-  
-  
-  rspec:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Cache examples.txt to allow tests to be balanced across workers
+        uses: actions/cache@v4
         with:
-          ruby-version: .ruby-version
-          bundler-cache: true
+          path: ./spec/examples.txt
+          key: spec-examples-${{ github.ref }}
+          restore-keys: |
+            spec-examples-${{ github.ref }}
+            spec-examples-
 
       - name: Run tests
-        run: bin/rspec --format documentation --color --profile --order defined
-        env:
-          RAILS_ENV: test
-          RACK_ENV: test
-          TEST_ENV_NUMBER: 1
-          CI: true
-          RSPEC_COLOR: true
-          RSPEC_PROFILE: true
-          RSPEC_ORDER: defined
+        run: bundle exec flatware rspec -r ./spec/flatware_helper -w 2 -p
+        timeout-minutes: 12
 
+      - name: Upload coverage
+        if: ${{ success() || failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report
+          path: ${{ github.workspace }}/coverage
+          include-hidden-files: true
+
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: ${{ github.workspace }}/tmp/capybara
+          if-no-files-found: ignore
+
+  coverage:
+    runs-on: ubuntu-22.04
+    needs: test
+    permissions:
+      pull-requests: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: code-coverage-report
+          path: coverage/
+
+      - name: Install JQ
+        run: sudo apt-get install -y jq
+
+      - name: Determine coverage
+        id: coverage
+        run: |
+          # Check to see if coverage is under `result.line` or under `result.covered_percent` (older versions)
+          coverage=$(jq -r 'if .result.line then .result.line else .result.covered_percent end' < coverage/.last_run.json)
+          [ "${coverage}" = "null" ] && coverage="** Failed to determine coverage **"
+          echo value="${coverage}" >> "$GITHUB_OUTPUT"
+
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            * GitHub Actions [run \#${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            Test coverage: ${{ steps.coverage.outputs.value }}%
