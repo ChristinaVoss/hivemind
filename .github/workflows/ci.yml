@@ -91,7 +91,9 @@ jobs:
         run: |
           bin/rails db:environment:set RAILS_ENV=test
           bin/rails db:drop || true
-          bin/rails db:create db:migrate
+          bin/rails db:create
+          psql -U postgres -d hivemind_test -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+          bin/rails db:migrate
 
       - name: Run tests
         env:
