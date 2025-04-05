@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Restore build
-        uses: actions/cache/restore@v4
-        with:
-          path: ./
-          key: ${{ github.sha }}-build
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
 
-      - name: brakeman
-        run: bundle exec brakeman
+      - name: Scan for common Rails security vulnerabilities using static analysis
+        run: bin/brakeman --no-pager
 
   scan_js:
     runs-on: ubuntu-latest
@@ -40,18 +40,16 @@ jobs:
 
   rubocop:
     runs-on: ubuntu-latest
-    needs: build
-
     steps:
-      - name: Restore build
-        uses: actions/cache/restore@v4
-        with:
-          path: ./
-          key: ${{ github.sha }}-build
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
 
-      - name: rubocop
-        run: bundle exec rubocop
+      - name: Lint code for consistent style
+        run: bin/rubocop -f github
 
