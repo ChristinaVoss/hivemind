@@ -163,12 +163,6 @@ GEM
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
     ffi (1.17.1-x86_64-linux-musl)
-    flatware (2.3.4)
-      drb
-      thor (< 2.0)
-    flatware-rspec (2.3.4)
-      flatware (= 2.3.4)
-      rspec (>= 3.6)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -547,7 +541,6 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
-  flatware-rspec
   importmap-rails
   jbuilder
   kamal

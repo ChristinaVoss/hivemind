@@ -87,7 +87,6 @@ group :test do
   gem 'axe-core-capybara'
   gem 'axe-core-rspec'
   gem 'capybara'
-  gem 'flatware-rspec', require: false
   gem 'rspec'
   gem 'rspec-rails', '~> 7.1'
   gem 'rubocop-rspec'
