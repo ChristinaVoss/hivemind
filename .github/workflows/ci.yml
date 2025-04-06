@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 
 jobs:
-  scan_ruby:
+  brakeman:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +38,7 @@ jobs:
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
-  lint:
+  rubocop:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -53,3 +53,68 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
+  # rspec:
+  #   runs-on: ubuntu-latest
+
+  #   env:
+  #     POSTGRES_DB: hivemind_test
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_HOST: postgres
+  #     RAILS_ENV: test
+  #   container:
+  #     image: ${{ inputs.docker_image }}
+  #     credentials:
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.github_token }}
+  #   services:
+  #     postgres:
+  #       image: 'postgis/postgis:15-3.3-alpine'
+  #       env:
+  #         POSTGRES_DB: hivemind_test
+  #         POSTGRES_PASSWORD: postgres
+  #         POSTGRES_USER: postgres
+  #       ports:
+  #         - '5432:5432'
+  #       options: >-
+  #         --health-cmd "pg_isready -h 127.0.0.1"
+  #         --health-interval 5s
+  #         --health-timeout 5s
+  #         --health-retries 5
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+
+  #     - name: Copy .env file
+  #       run: cp .env.example .env
+
+  #     - name: Wait for PostgreSQL
+  #       run: |
+  #         for i in {1..10}; do
+  #           if pg_isready -h postgres -p 5432 -U postgres; then
+  #             echo "PostgreSQL is ready!"
+  #             break
+  #           fi
+  #           echo "Waiting for PostgreSQL to be ready..."
+  #           sleep 5
+  #         done
+
+  #     - name: Enable PostGIS
+  #       run: |
+  #         psql -h postgres -U postgres -d hivemind_test -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+
+  #     - name: Set up database
+  #       run: |
+  #         rails db:create
+  #         rails db:migrate
+
+  #     - name: Run rspec
+  #       run: rspec
+
+  #     - name: Archive coverage
+  #       if: ${{ success() || failure() }}
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: code-coverage-report
+  #         path: /github/workspace/coverage/
+  #         include-hidden-files: true
