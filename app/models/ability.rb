@@ -12,7 +12,7 @@ class Ability
     can :manage, Hive, user_id: user.id
 
     # A bee can create flower patches
-    # can :create, FlowerPatch
+    can :create, FlowerPatch
 
     # A bee can view all flower patches (they are public)
     # can :read, FlowerPatch

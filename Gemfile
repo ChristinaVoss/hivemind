@@ -24,6 +24,7 @@ gem 'jbuilder'
 # For geospatial data
 gem 'activerecord-postgis-adapter', '~> 11.0'
 gem 'rgeo', '~> 3.0'
+gem 'rgeo-geojson'
 
 # Authorization
 gem 'cancancan'

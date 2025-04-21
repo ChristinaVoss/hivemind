@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_09_094817) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_06_152604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
+
+  create_table "flower_patches", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.geography "area", limit: {:srid=>4326, :type=>"st_polygon", :geographic=>true}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_flower_patches_on_user_id"
+  end
 
   create_table "hives", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -41,6 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_09_094817) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "flower_patches", "users"
   add_foreign_key "hives", "users"
   add_foreign_key "sessions", "users"
 end
