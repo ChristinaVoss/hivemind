@@ -6,6 +6,7 @@ header.nav-bar
       .nav-bar__nav-links
         = link_to "Dashboard", dashboard_path
         = link_to 'Move hive', new_hive_path
+        = link_to 'Add flower patch', new_flower_patch_path
       .nav-bar__auth-buttons
         = button_to "Sign out", session_path, method: :delete, class: 'button--secondary', data: { turbo: :false }
     - else

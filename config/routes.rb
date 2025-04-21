@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get :distance, on: :collection
   end
 
+  resources :flower_patches, only: %i[new create]
   # Custom route for the dashboard
   get 'dashboard', to: 'hives#show', as: :dashboard
 

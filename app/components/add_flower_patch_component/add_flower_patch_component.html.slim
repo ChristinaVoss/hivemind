@@ -1,0 +1,28 @@
+.add-flower-patch data-controller="draw-polygon-map"
+  h1 Add a Flower Patch
+  p Click on the map to outline the flower patch area.
+
+  = render MapComponent.new( \
+        attrs: { \
+          "controller": "draw-polygon-map",
+          "draw-polygon-map-target": "map",
+          "draw-polygon-map-hive-lat-value": hive.location.y,
+          "draw-polygon-map-hive-lng-value": hive.location.x \
+        } \
+      )
+
+  button.button.mt-4 data-draw-polygon-map-target="saveButton" data-action="click->draw-polygon-map#save"
+    | Save Flower Patch
+
+/ .add-flower-patch data-controller="draw-polygon-map"
+/   h1 Add a Flower Patch
+/   p Click on the map to outline the flower patch area.
+
+/   .map
+/     div#map data-draw-polygon-map-target="map"
+/             data-draw-polygon-map-hive-lat-value=hive.location.y
+/             data-draw-polygon-map-hive-lng-value=hive.location.x
+/             style="height: 400px; width: 600px;"
+
+/   button.button.mt-4 data-draw-polygon-map-target="saveButton" data-action="click->draw-polygon-map#save"
+/     | Save Flower Patch

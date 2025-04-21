@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_one :hive, dependent: :destroy
+  has_many :flower_patches, dependent: :destroy
 
   validates :email_address, presence: true, uniqueness: true # , format: { with: URI::MailTo::EMAIL }
   validates :password, presence: true
